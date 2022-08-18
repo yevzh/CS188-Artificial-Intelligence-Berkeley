@@ -8,4 +8,4 @@ By the end of this course, you will have built autonomous agents that efficientl
 
 ## Course Website
 
-[CS 188: Introduction to Artificial Intelligence, Spring 2020 (berkeley.edu)](https://inst.eecs.berkeley.edu/~cs188/sp20/)
+[CS 188: Introduction to Artificial Intelligence, Summer 2022 (berkeley.edu)](https://inst.eecs.berkeley.edu/~cs188/su22/)
