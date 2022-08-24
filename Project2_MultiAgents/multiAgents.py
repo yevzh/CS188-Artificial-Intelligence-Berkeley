@@ -288,6 +288,7 @@ def betterEvaluationFunction(currentGameState: GameState):
     newPos = currentGameState.getPacmanPosition()
     newFood = currentGameState.getFood()
     newGhostStates = currentGameState.getGhostStates()
+    newCapsules = currentGameState.getCapsules()
     newScaredTimes = [ghostState.scaredTimer for ghostState in newGhostStates]
 
     "*** YOUR CODE HERE ***"
@@ -306,9 +307,7 @@ def betterEvaluationFunction(currentGameState: GameState):
     crashEval = 0  # solve the index problem
     if len(foodDis) != 0:
         crashEval = foodDis[0]
-
     return ghostDis[0] / ((crashEval + 0.0001) ** 2) + 100 * currentGameState.getScore()
-    # util.raiseNotDefined()
 
 # Abbreviation
 better = betterEvaluationFunction
