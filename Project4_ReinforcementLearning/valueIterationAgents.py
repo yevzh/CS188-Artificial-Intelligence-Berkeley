@@ -65,6 +65,20 @@ class ValueIterationAgent(ValueEstimationAgent):
           value iteration, V_k+1(...) depends on V_k(...)'s.
         """
         "*** YOUR CODE HERE ***"
+        for i in range(self.iterations):
+            states = self.mdp.getStates()
+            counter = util.Counter()
+            for state in states:
+                maxVal = float('-inf')
+                if len(self.mdp.getPossibleActions(state)) == 0:
+                    maxVal = 0
+                else:
+                    for action in self.mdp.getPossibleActions(state):
+                        QVal = self.computeQValueFromValues(state, action)
+                        if QVal > maxVal:
+                            maxVal = QVal
+                counter[state] = maxVal
+            self.values = counter
 
     def getValue(self, state):
         """
@@ -78,7 +92,12 @@ class ValueIterationAgent(ValueEstimationAgent):
           value function stored in self.values.
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        Qval = 0
+        for nextState, probability in self.mdp.getTransitionStatesAndProbs(state, action):
+            RVal = self.mdp.getReward(state, action, nextState)
+            Qval += probability * (RVal + self.discount * self.values[nextState])
+        return Qval
+        # util.raiseNotDefined()
 
     def computeActionFromValues(self, state):
         """
@@ -90,7 +109,19 @@ class ValueIterationAgent(ValueEstimationAgent):
           terminal state, you should return None.
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        optimalAction = None
+        maxVal = float('-inf')
+        if len(self.mdp.getPossibleActions(state)) == 0:
+            return None
+        else:
+            for action in self.mdp.getPossibleActions(state):
+                Qval = self.computeQValueFromValues(state, action)
+                if Qval > maxVal:
+                    optimalAction = action
+                    maxVal = Qval
+            return optimalAction
+
+        # util.raiseNotDefined()
 
     def getPolicy(self, state):
         return self.computeActionFromValues(state)
